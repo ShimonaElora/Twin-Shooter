@@ -9,6 +9,24 @@ public class SliderButtonScript : MonoBehaviour, IPointerDownHandler, IPointerUp
 
     public bool isLeft;
 
+    Button button;
+
+    private void Start()
+    {
+        button = GetComponent<Button>();
+    }
+
+    private void Update()
+    {
+        if (GameMechsScript.isPaused)
+        {
+            button.interactable = false;
+        } else
+        {
+            button.interactable = true;
+        }
+    }
+
     public void OnPointerDown(PointerEventData eventData)
     {
         if (isLeft)

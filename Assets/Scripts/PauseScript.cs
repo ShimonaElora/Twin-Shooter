@@ -1,13 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
-public class ChangeWeaponScript : MonoBehaviour, IPointerClickHandler
+public class PauseScript : MonoBehaviour, IPointerClickHandler
 {
 
     Button button;
+
+    public GameObject panel;
 
     private void Start()
     {
@@ -16,7 +18,7 @@ public class ChangeWeaponScript : MonoBehaviour, IPointerClickHandler
 
     private void Update()
     {
-        if (GameMechsScript.isPaused || GameMechsScript.isGameOver)
+        if (GameMechsScript.isPaused)
         {
             button.interactable = false;
         }
@@ -28,7 +30,7 @@ public class ChangeWeaponScript : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        GameMechsScript.bulletNumber++;
+        GameMechsScript.isPaused = true;
+        panel.SetActive(true);
     }
-    
 }

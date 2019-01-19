@@ -67,7 +67,10 @@ public class EnemySpawnScript : MonoBehaviour
     {
         yield return new WaitForSeconds(spawnTimeDiff);
 
-        SelectAndSpawn();
+        if (!GameMechsScript.isPaused && !GameMechsScript.isGameOver)
+        {
+            SelectAndSpawn();
+        }
 
         StartCoroutine(WaitForSpawnTimeDiff());
     }
@@ -76,19 +79,22 @@ public class EnemySpawnScript : MonoBehaviour
     {
         yield return new WaitForSeconds(timeInMinSpeedChange[i] * 60);
 
-        if (i < timeInMinSpeedChange.Length - 1)
+        if (!GameMechsScript.isPaused && !GameMechsScript.isGameOver)
         {
-            i++;
-
-            for (int k = 0; k < speeds.Length; k++)
+            if (i < timeInMinSpeedChange.Length - 1)
             {
-                if (speeds[k] + speedDiff[k] < maxSpeeds[k])
-                {
-                    speeds[k] = speeds[k] + speedDiff[k];
-                }
-            }
+                i++;
 
-            speedChange = true;
+                for (int k = 0; k < speeds.Length; k++)
+                {
+                    if (speeds[k] + speedDiff[k] < maxSpeeds[k])
+                    {
+                        speeds[k] = speeds[k] + speedDiff[k];
+                    }
+                }
+
+                speedChange = true;
+            }
         }
     }
 
@@ -96,16 +102,20 @@ public class EnemySpawnScript : MonoBehaviour
     {
         yield return new WaitForSeconds(timeInMinEnemyNumChange[j] * 60);
 
-        if (j < timeInMinEnemyNumChange.Length - 1)
-        {
-            j++;
-            
-            if (numberOfEnemies < maxEnemies - 1)
-            {
-                numberOfEnemies++;
-            }
 
-            enemyNumChange = true;
+        if (!GameMechsScript.isPaused && !GameMechsScript.isGameOver)
+        {
+            if (j < timeInMinEnemyNumChange.Length - 1)
+            {
+                j++;
+
+                if (numberOfEnemies < maxEnemies - 1)
+                {
+                    numberOfEnemies++;
+                }
+
+                enemyNumChange = true;
+            }
         }
     }
 

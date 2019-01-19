@@ -56,15 +56,18 @@ public class PlayerScript : MonoBehaviour
     {
         yield return new WaitForSeconds(timeInSecBulletSpawn[GameMechsScript.bulletNumber % bullets.Length]);
 
-        GameObject objectLeft = Instantiate(bullets[GameMechsScript.bulletNumber % bullets.Length], left);
-        objectLeft.transform.SetParent(BulletParent);
-        objectLeft.transform.localScale = bullets[GameMechsScript.bulletNumber % bullets.Length].transform.localScale;
-        objectLeft.GetComponent<Rigidbody2D>().velocity = new Vector3(0, bulletSpeeds[GameMechsScript.bulletNumber % bullets.Length] * 0.1f, 0);
+        if (!GameMechsScript.isPaused && !GameMechsScript.isGameOver)
+        {
+            GameObject objectLeft = Instantiate(bullets[GameMechsScript.bulletNumber % bullets.Length], left);
+            objectLeft.transform.SetParent(BulletParent);
+            objectLeft.transform.localScale = bullets[GameMechsScript.bulletNumber % bullets.Length].transform.localScale;
+            objectLeft.GetComponent<Rigidbody2D>().velocity = new Vector3(0, bulletSpeeds[GameMechsScript.bulletNumber % bullets.Length] * 0.1f, 0);
 
-        GameObject objectRight = Instantiate(bullets[GameMechsScript.bulletNumber % bullets.Length], right);
-        objectRight.transform.SetParent(BulletParent);
-        objectRight.transform.localScale = bullets[GameMechsScript.bulletNumber % bullets.Length].transform.localScale;
-        objectRight.GetComponent<Rigidbody2D>().velocity = new Vector3(0, bulletSpeeds[GameMechsScript.bulletNumber % bullets.Length] * 0.1f, 0);
+            GameObject objectRight = Instantiate(bullets[GameMechsScript.bulletNumber % bullets.Length], right);
+            objectRight.transform.SetParent(BulletParent);
+            objectRight.transform.localScale = bullets[GameMechsScript.bulletNumber % bullets.Length].transform.localScale;
+            objectRight.GetComponent<Rigidbody2D>().velocity = new Vector3(0, bulletSpeeds[GameMechsScript.bulletNumber % bullets.Length] * 0.1f, 0);
+        }
 
         StartCoroutine(ThrowBullets());
 
