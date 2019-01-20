@@ -11,12 +11,16 @@ public class EnemyScript : MonoBehaviour
 
     private Rigidbody2D rigidbody2D;
 
+    private bool canAlterScore;
+
     // Start is called before the first frame update
     void Start()
     {
         rigidbody2D = GetComponent<Rigidbody2D>();
 
         velocity = rigidbody2D.velocity;
+
+        canAlterScore = true;
     }
 
     // Update is called once per frame
@@ -41,7 +45,11 @@ public class EnemyScript : MonoBehaviour
 
         else if (collision.gameObject.tag.Equals("Bullet " + enemyNumber) && !GameMechsScript.isGameOver)
         {
-            GameMechsScript.score++;
+            if (canAlterScore)
+            {
+                canAlterScore = false;
+                GameMechsScript.score++;
+            }
             Destroy(gameObject);
         }
     }
